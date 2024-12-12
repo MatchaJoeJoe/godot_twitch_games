@@ -43,4 +43,3 @@ func _on_close_requested():
 
 func _on_send_btn_pressed():
 	send()
-

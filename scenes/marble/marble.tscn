@@ -18,8 +18,8 @@ metadata/_snap_enabled = true
 radius = 15.0
 
 [node name="Marble" type="RigidBody2D"]
-continuous_cd = 2
 can_sleep = false
+continuous_cd = 2
 script = ExtResource("1_gpjdk")
 
 [node name="Name" type="Label" parent="."]
