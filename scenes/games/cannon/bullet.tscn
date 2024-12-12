@@ -1,7 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2d2jf6iqxrf6"]
+[gd_scene load_steps=14 format=3 uid="uid://c2d2jf6iqxrf6"]
 
 [ext_resource type="Script" path="res://scenes/games/cannon/bullet.gd" id="1_3enl3"]
 [ext_resource type="Script" path="res://addons/trail_2d/trail_2d.gd" id="2_fe6gf"]
+[ext_resource type="FontFile" uid="uid://dls2xnyb4c03q" path="res://shared/fonts/Kenney Pixel Square.ttf" id="2_jdc81"]
+[ext_resource type="Texture2D" uid="uid://cfpjhc5aje482" path="res://shared/visuals/circle_96.png" id="4_563oh"]
+[ext_resource type="Script" path="res://scenes/games/cannon/bullet_sprite.gd" id="5_x5g08"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uddch"]
 bounce = 0.71
@@ -58,14 +61,15 @@ offset_right = -911.5
 offset_bottom = -12.0
 grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_jdc81")
 theme_override_font_sizes/font_size = 26
 text = "VIEWER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Trail2D" type="Line2D" parent="."]
-width = 32.0
+width = 28.0
 width_curve = SubResource("Curve_i8bl6")
 script = ExtResource("2_fe6gf")
 length = 32
@@ -78,7 +82,11 @@ texture = SubResource("GradientTexture2D_tw6su")
 lifetime = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_tw6su")
+texture_filter = 1
+position = Vector2(-1.78814e-06, 1.78814e-06)
+scale = Vector2(0.354167, 0.354167)
+texture = ExtResource("4_563oh")
+script = ExtResource("5_x5g08")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_yegct")

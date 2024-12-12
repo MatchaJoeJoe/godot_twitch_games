@@ -13,7 +13,7 @@ config_version=5
 config/name="godot_twitch_games"
 config/version="0.0.8"
 config/tags=PackedStringArray("stream", "tool")
-run/main_scene="res://scenes/ui/selection.tscn"
+run/main_scene="res://scenes/games/cannon/cannon.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.png"
 

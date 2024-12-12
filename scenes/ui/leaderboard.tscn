@@ -1,22 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://35ktida5n6y5"]
+[gd_scene load_steps=6 format=3 uid="uid://35ktida5n6y5"]
 
-[ext_resource type="FontFile" uid="uid://rmkjlvce4dyv" path="res://shared/fonts/MPLUSCodeLatin-Bold.ttf" id="1_ff7lw"]
 [ext_resource type="Script" path="res://scenes/ui/scripts/leaderboard.gd" id="1_p2vo4"]
+[ext_resource type="FontFile" uid="uid://dls2xnyb4c03q" path="res://shared/fonts/Kenney Pixel Square.ttf" id="2_r44hl"]
+[ext_resource type="FontFile" uid="uid://cywjfqvlv1cla" path="res://shared/fonts/Kenney Pixel.ttf" id="3_wccnf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0dj6w"]
-bg_color = Color(0.164706, 0.164706, 0.164706, 1)
+bg_color = Color(0.129412, 0.141176, 0.231373, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
-shadow_color = Color(0.392157, 0.392157, 0.392157, 0.6)
-shadow_size = 1
-shadow_offset = Vector2(0, 3)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iqs6f"]
-bg_color = Color(0.235294, 0.235294, 0.235294, 1)
-shadow_color = Color(0.321569, 0.321569, 0.321569, 0.6)
-shadow_size = 4
+bg_color = Color(0.200833, 0.297188, 0.40007, 1)
 
 [node name="leaderboard" type="Control"]
 layout_mode = 3
@@ -28,6 +24,7 @@ grow_vertical = 2
 script = ExtResource("1_p2vo4")
 
 [node name="background" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,14 +56,20 @@ theme_override_constants/margin_left = 1600
 theme_override_constants/margin_top = 0
 
 [node name="ExitButton" type="Button" parent="foreground/VBoxContainer/MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
 text = "X"
 
 [node name="title" type="Label" parent="foreground/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_ff7lw")
-theme_override_font_sizes/font_size = 126
+theme_override_colors/font_color = Color(0.0392157, 0.823529, 0.788235, 1)
+theme_override_colors/font_shadow_color = Color(0.129412, 0.141176, 0.231373, 1)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/shadow_outline_size = 30
+theme_override_fonts/font = ExtResource("2_r44hl")
+theme_override_font_sizes/font_size = 60
 text = "LEADERBOARD"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -74,8 +77,8 @@ vertical_alignment = 1
 [node name="PanelMarginContainer" type="MarginContainer" parent="foreground/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 500
-theme_override_constants/margin_right = 500
+theme_override_constants/margin_left = 575
+theme_override_constants/margin_right = 575
 
 [node name="ContentPanelContainer" type="PanelContainer" parent="foreground/VBoxContainer/PanelMarginContainer"]
 layout_mode = 2
@@ -83,11 +86,13 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_0dj6w")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="foreground/VBoxContainer/PanelMarginContainer/ContentPanelContainer"]
+custom_minimum_size = Vector2(520, 666)
 layout_mode = 2
+alignment = 1
 
 [node name="TopContainer" type="HBoxContainer" parent="foreground/VBoxContainer/PanelMarginContainer/ContentPanelContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 6
 size_flags_stretch_ratio = 0.12
 
 [node name="MarginContainer" type="MarginContainer" parent="foreground/VBoxContainer/PanelMarginContainer/ContentPanelContainer/VBoxContainer/TopContainer"]
@@ -98,8 +103,9 @@ theme_override_constants/margin_left = -70
 [node name="Label" type="Label" parent="foreground/VBoxContainer/PanelMarginContainer/ContentPanelContainer/VBoxContainer/TopContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.360784, 0.360784, 0.360784, 1)
-theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(0.0392157, 0.823529, 0.788235, 1)
+theme_override_fonts/font = ExtResource("3_wccnf")
+theme_override_font_sizes/font_size = 75
 text = "Top"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -112,8 +118,9 @@ theme_override_constants/margin_right = -70
 [node name="Label2" type="Label" parent="foreground/VBoxContainer/PanelMarginContainer/ContentPanelContainer/VBoxContainer/TopContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.360784, 0.360784, 0.360784, 1)
-theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(0.0392157, 0.823529, 0.788235, 1)
+theme_override_fonts/font = ExtResource("3_wccnf")
+theme_override_font_sizes/font_size = 75
 text = "Score"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -123,6 +130,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="PanelContainer" type="PanelContainer" parent="foreground/VBoxContainer/PanelMarginContainer/ContentPanelContainer/VBoxContainer/ListContainer"]
 layout_mode = 2
@@ -131,5 +139,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_iqs6f")
 [node name="Scorelist" type="VBoxContainer" parent="foreground/VBoxContainer/PanelMarginContainer/ContentPanelContainer/VBoxContainer/ListContainer/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 10
 
 [connection signal="pressed" from="foreground/VBoxContainer/MarginContainer/ExitButton" to="." method="_on_exit_button_pressed"]

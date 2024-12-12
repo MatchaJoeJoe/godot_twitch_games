@@ -3,7 +3,7 @@ extends Node2D
 enum GAME_STATE {WAITING, RUNNING, WINNER, PAUSED}
 
 @export var bullet_scene: PackedScene = preload("res://scenes/games/cannon/bullet.tscn")
-@export var default_countdown: float = 3.0
+@export var default_countdown: float = 0.0
 @export var minimum_distance: float = 300.0
 
 var state: GAME_STATE = GAME_STATE.WAITING
@@ -18,13 +18,12 @@ var player_goal_list: Dictionary = {}
 @onready var cannon_sprite: Sprite2D = $Cannon/Sprite2D
 @onready var target: Area2D = $Target
 
-@onready var join_next_round: Label = $JoinNextRound
 @onready var how_to_play: Label = $HowToPlay
-@onready var waiting: Label = $CanvasLayer/Waiting
-@onready var countdown: Label = $CanvasLayer/Countdown
 @onready var leaderboard: Control = $CanvasLayer/leaderboard
 
 func _ready() -> void:
+	leaderboard.visible = true
+	leaderboard.show_leaderboard(player_goal_list)
 	GameConfigManager.load_config()
 
 	GiftSingleton.viewer_joined.connect(on_viewer_joined)
@@ -40,7 +39,7 @@ func _ready() -> void:
 
 	SignalBus.transparency_toggled.connect(on_transparency_toggled)
 
-	change_state(GAME_STATE.WAITING)
+	change_state(GAME_STATE.RUNNING)
 	Transition.hide_transition()
 	
 	await get_tree().create_timer(10.0).timeout
@@ -59,11 +58,9 @@ func change_state(new_state: GAME_STATE) -> void:
 	state = new_state
 	match state:
 		GAME_STATE.WAITING:
-			waiting.visible = true
-			join_next_round.visible = false
+			pass
 		GAME_STATE.RUNNING:
-			waiting.visible = false
-			join_next_round.visible = true
+			pass
 		GAME_STATE.WINNER:
 			pass
 		GAME_STATE.PAUSED:
@@ -164,7 +161,6 @@ func on_streamer_start(arg_arr : PackedStringArray) -> void:
 	if not arg_arr.is_empty():
 		if arg_arr[0].is_valid_float():
 			countdown_duration = float(arg_arr[0])
-	countdown.start(countdown_duration)
 
 func on_streamer_wait(cmd_info : CommandInfo) -> void:
 	change_state(GAME_STATE.WAITING)
@@ -175,6 +171,7 @@ func _on_target_body_entered(body: Node2D) -> void:
 	else:
 		player_goal_list[body.get_node("Name").text] += 1
 	
+	leaderboard.show_leaderboard(player_goal_list)
 	target.activate()
 	change_state(GAME_STATE.WINNER)
 	next_round()
@@ -186,7 +183,3 @@ func on_transparency_toggled(transparent: bool) -> void:
 	for node in get_tree().get_nodes_in_group("Background"):
 		node.visible = not transparent
 		get_viewport().transparent_bg = transparent
-
-func _on_leaderboard_button_pressed():
-	leaderboard.visible = true
-	leaderboard.show_leaderboard(player_goal_list)

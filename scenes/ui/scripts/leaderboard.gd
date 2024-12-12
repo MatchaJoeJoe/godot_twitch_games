@@ -4,9 +4,6 @@ extends Control
 
 @onready var score_list = %Scorelist
 
-func _ready():
-	visible = false
-
 func show_leaderboard(dict: Dictionary) -> void:
 	var keys: Array = dict.keys()
 
@@ -22,6 +19,3 @@ func show_leaderboard(dict: Dictionary) -> void:
 		var entry_instance = entry.instantiate()
 		score_list.add_child(entry_instance)
 		entry_instance.display_entry(k, str(dict[k]))
-
-func _on_exit_button_pressed():
-	visible = false
