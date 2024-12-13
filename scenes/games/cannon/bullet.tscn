@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c2d2jf6iqxrf6"]
+[gd_scene load_steps=12 format=3 uid="uid://c2d2jf6iqxrf6"]
 
 [ext_resource type="Script" path="res://scenes/games/cannon/bullet.gd" id="1_3enl3"]
 [ext_resource type="Script" path="res://addons/trail_2d/trail_2d.gd" id="2_fe6gf"]
@@ -25,18 +25,6 @@ lifetime_randomness = 0.2
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_b736v")
-
-[sub_resource type="Gradient" id="Gradient_ql0u4"]
-offsets = PackedFloat32Array(0.587097, 0.658065)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tw6su"]
-gradient = SubResource("Gradient_ql0u4")
-width = 35
-height = 35
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-metadata/_snap_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yegct"]
 radius = 15.0
@@ -76,9 +64,10 @@ length = 32
 
 [node name="Trail" type="GPUParticles2D" parent="."]
 visible = false
+self_modulate = Color(1, 1, 1, 0.458824)
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_f5wr3")
-texture = SubResource("GradientTexture2D_tw6su")
+texture = ExtResource("4_563oh")
 lifetime = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

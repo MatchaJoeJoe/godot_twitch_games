@@ -15,7 +15,8 @@ var player_goal_list: Dictionary = {}
 
 @onready var viewer_container: Node2D = $ViewerContainer
 @onready var cannon: Node2D = $Cannon
-@onready var cannon_sprite: Sprite2D = $Cannon/Sprite2D
+@onready var cannon_sprite_holder: Node2D = $Cannon/SpriteHolder
+@onready var cannon_sprite: Sprite2D = $Cannon/SpriteHolder/Sprite2D
 @onready var target: Area2D = $Target
 
 @onready var how_to_play: Label = $HowToPlay
@@ -95,7 +96,7 @@ func fire_viewer(viewer_name: String, angle: float, power: float) -> void:
 
 	# Rotate cannon
 	# Adds - to angle to go from 0 to -180 and keep it positive for viewers
-	cannon_sprite.rotation_degrees = -angle
+	cannon_sprite_holder.rotation_degrees = -angle
 
 	# Send viewer
 	viewers[viewer_name].call_deferred("stop_move")
@@ -154,7 +155,11 @@ func on_viewer_fire(cmd_info : CommandInfo, arg_arr : PackedStringArray) -> void
 
 	var angle: float = float(arg_arr[0])
 	var power: float = float(arg_arr[1])
-	fire_viewer(cmd_info.sender_data.tags["display-name"], angle, power)
+	var viewer_name = cmd_info.sender_data.tags["display-name"]
+	if not (player_goal_list.has(viewer_name)):
+		player_goal_list[viewer_name] = 0
+	leaderboard.show_leaderboard(player_goal_list)
+	fire_viewer(viewer_name, angle, power)
 
 func on_streamer_start(arg_arr : PackedStringArray) -> void:
 	var countdown_duration: float = default_countdown
@@ -166,10 +171,7 @@ func on_streamer_wait(cmd_info : CommandInfo) -> void:
 	change_state(GAME_STATE.WAITING)
 
 func _on_target_body_entered(body: Node2D) -> void:
-	if not (player_goal_list.has(body.get_node("Name").text)):
-		player_goal_list[body.get_node("Name").text] = 1
-	else:
-		player_goal_list[body.get_node("Name").text] += 1
+	player_goal_list[body.get_node("Name").text] += 1
 	
 	leaderboard.show_leaderboard(player_goal_list)
 	target.activate()

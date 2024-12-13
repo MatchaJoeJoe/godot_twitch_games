@@ -3,7 +3,7 @@ extends Node2D
 @export var shoot_particles: PackedScene = preload("res://scenes/games/cannon/shoot_particles.tscn")
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var sprite_2d: Node2D = $SpriteHolder
 
 func shoot() -> void:
 	animation_player.play("shoot")
@@ -12,5 +12,6 @@ func shoot() -> void:
 func spawn_particles() -> void:
 	var instance: GPUParticles2D = shoot_particles.instantiate()
 	add_child(instance)
-	instance.rotation = sprite_2d.rotation
+	instance.rotation = self.rotation
+	animation_player.play("idle")
 	
